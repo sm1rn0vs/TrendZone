@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendZone - Магазин трендовых товаров</title>
+    <style>
+        :root {
+            --main-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --success-color: #00b894;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-icons a {
+            color: white;
+            margin-left: 20px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .header-icons a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero {
+            height: 80vh;
+            min-height: 500px;
+            background: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 600px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: #e84393;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--dark-color);
+        }
+        
+        .trending-now {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .trending-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .trending-tab {
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-color);
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .trending-tab.active, .trending-tab:hover {
+            color: var(--main-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--success-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .product-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+        
+        .quick-view {
+            color: white;
+            background: var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-category {
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--main-color);
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #b2bec3;
+            margin-left: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .product-rating {
+            color: #fdcb6e;
+        }
+        
+        .add-to-wishlist {
+            color: #b2bec3;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .add-to-wishlist:hover {
+            color: var(--accent-color);
+        }
+        
+        .new-arrivals {
+            padding: 80px 0;
+            background: #f1f2f6;
+        }
+        
+        .instagram-feed {
+            padding: 80px 0;
+        }
+        
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+        
+        .instagram-item {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .instagram-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .instagram-item:hover:before {
+            opacity: 1;
+        }
+        
+        .instagram-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .instagram-item:hover .instagram-icon {
+            opacity: 1;
+        }
+        
+        .newsletter {
+            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
+            padding: 60px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .newsletter h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form button {
+            padding: 15px 30px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background: #e84393;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #b2bec3;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b2bec3;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .instagram-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+            
+            .header-icons {
+                margin-top: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .btn {
+                display: block;
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .instagram-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .trending-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .trending-tab {
+                margin: 5px 0;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Trend<span>Zone</span></div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Магазин</a></li>
+                    <li><a href="#">Тренды</a></li>
+                    <li><a href="#">Блог</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-shopping-bag"></i></a>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>ОТКРОЙТЕ ДЛЯ СЕБЯ НОВЫЕ ТРЕНДЫ 2023</h1>
+                <p>Самые модные и популярные товары этого сезона уже в нашем магазине. Будь в тренде!</p>
+                <div>
+                    <a href="#" class="btn">Купить сейчас</a>
+                    <a href="#" class="btn btn-outline">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="trending-now">
+        <div class="container">
+            <div class="section-title">
+                <h2>Популярные сейчас</h2>
+            </div>
+            
+            <div class="trending-tabs">
+                <div class="trending-tab active">Все</div>
+                <div class="trending-tab">Электроника</div>
+                <div class="trending-tab">Мода</div>
+                <div class="trending-tab">Для дома</div>
+                <div class="trending-tab">Красота</div>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Хит</div>
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Электроника</div>
+                        <h3 class="product-title">Умные часы Pro Max 2023</h3>
+                        <div class="product-price">
+                            <span class="current-price">14,990 ₽</span>
+                            <span class="old-price">18,990 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">Новинка</div>
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Мода</div>
+                        <h3 class="product-title">Кроссовки Future Glow</h3>
+                        <div class="product-price">
+                            <span class="current-price">8,490 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1585386959984-a4155224a1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Красота</div>
+                        <h3 class="product-title">Набор косметики Organic</h3>
+                        <div class="product-price">
+                            <span class="current-price">5,290 ₽</span>
+                            <span class="old-price">6,500 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">-30%</div>
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Для дома</div>
+                        <h3 class="product-title">Умная лампа Color Change</h3>
+                        <div class="product-price">
+                            <span class="current-price">3,990 ₽</span>
+                            <span class="old-price">5,700 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="new-arrivals">
+        <div class="container">
+            <div class="section-title">
+                <h2>Новые поступления</h2>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Новинка</div>
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Аксессуары</div>
+                        <h3 class="product-title">Мини-рюкзак Urban</h3>
+                        <div class="product-price">
+                            <span class="current-price">4,290 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Электроника</div>
+                        <h3 class="product-title">Беспроводные наушники X9</h3>
+                        <div class="product-price">
+                            <span class="current-price">6,790 ₽</span>
+                            <span class="old-price">8,200 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">Хит</div>
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Аксессуары</div>
+                        <h3 class="product-title">Солнцезащитные очки Premium</h3>
+                        <div class="product-price">
+                            <span class="current-price">7,990 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">-25%</div>
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <div class="product-overlay">
+                            <a href="#" class="quick-view">Быстрый просмотр</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Мода</div>
+                        <h3 class="product-title">Беговые кроссовки Air</h3>
+                        <div class="product-price">
+                            <span class="current-price">9,990 ₽</span>
+                            <span class="old-price">13,320 ₽</span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="add-to-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="instagram-feed">
+        <div class="container">
+            <div class="section-title">
+                <h2>Мы в Instagram</h2>
+            </div>
+            
+            <div class="instagram-grid">
+                <div class="instagram-item" style="background-image: url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                    <div class="instagram-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-item" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                    <div class="instagram-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-item" style="background-image: url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                    <div class="instagram-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-item" style="background-image: url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                    <div class="instagram-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-item" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                    <div class="instagram-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="newsletter">
+        <div class="container">
+            <h3>Подпишитесь на рассылку</h3>
+            <p>Будьте первыми, кто узнает о новых трендах, эксклюзивных предложениях и специальных скидках.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Ваш email адрес">
+                <button type="submit">Подписаться</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>О TrendZone</h4>
+                    <p>Мы собираем самые трендовые товары со всего мира, чтобы вы могли быть в курсе последних тенденций.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Магазин</h4>
+                    <ul>
+                        <li><a href="#">Все товары</a></li>
+                        <li><a href="#">Новинки</a></li>
+                        <li><a href="#">Популярное</a></li>
+                        <li><a href="#">Скидки</a></li>
+                        <li><a href="#">Предзаказ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Доставка и оплата</a></li>
+                        <li><a href="#">Возврат</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li>Москва, ул. Трендовая, 15</li>
+                        <li>mchlsmirnoff@gmail.com</li>
+                        <li>+7 (967) 564-30-27</li>
+                        <li>Круглосуточно</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
